@@ -23,7 +23,9 @@ impl AppSettings{
     }
 
     pub fn new_app_settings() ->AppSettings{
-        dotenv().ok();
+        if cfg!(debug_assertions){
+            dotenv().ok();
+        }
         AppSettings{
             report_service_url: env::var("REPORT_SERVICE").expect("Error al leer variables de entorno"),
             add_report_service_url: env::var("SEND_REPORT_SERVICE").expect("Error al leer variables de entorno"),
